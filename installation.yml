@@ -1,0 +1,10 @@
+---
+- hosts: all
+  gather_facts: yes
+  remote_user: ec2-user
+  become: yes
+  vars:
+    cluster_name: Test_Cluster
+  roles:
+    - installation
+    - cassandra_keyspace

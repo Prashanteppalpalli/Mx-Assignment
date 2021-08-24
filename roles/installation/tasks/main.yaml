@@ -1,0 +1,25 @@
+---
+- name: Copy Java RPM file
+  copy:
+     src: jdk-8_linux-x64_bin.rpm
+     dest: /tmp/jdk-8_linux-x64_bin.rpm
+
+- name: install JDK via RPM file with yum
+  yum:
+    name: /tmp/jdk-8_linux-x64_bin.rpm
+    state: present
+- name: Copy Cassandra tar
+  copy:
+     src: apache-cassandra-3.11.2-bin.tar.gz
+     dest: /tmp/apache-cassandra-3.11.2-bin.tar.gz
+
+- name: Extract Cassandra
+  command: tar -xvf /tmp/apache-cassandra-3.11.2-bin.tar.gz
+
+- name: override cassandra.yaml file
+  template: src=cassandra.yaml dest=apache-cassandra-3.11.2/conf/
+
+- name: Run Cassandra from bin folder
+  command: ./cassandra -fR
+  args:
+    chdir: /home/ec2-user/apache-cassandra-3.11.2/bin/

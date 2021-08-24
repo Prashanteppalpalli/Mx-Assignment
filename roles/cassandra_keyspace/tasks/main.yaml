@@ -1,0 +1,5 @@
+---
+- name: create keyspace
+  shell: |
+      bin/cqlsh
+      CREATE KEYSPACE mxassignment WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 3};
